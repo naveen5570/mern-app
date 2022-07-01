@@ -4,8 +4,8 @@
   "description": "mern",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "app": "nodemon app.js",
+    "start": "node index.js",
+    "app": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix react-frontend && npm run build --prefix react-frontend"
   },
