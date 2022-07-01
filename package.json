@@ -1,0 +1,45 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "mern",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "app": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix react-frontend && npm run build --prefix react-frontend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/naveen5570/mern.git"
+  },
+  "keywords": [
+    "mern"
+  ],
+  "author": "mern",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/naveen5570/mern/issues"
+  },
+  "homepage": "https://github.com/naveen5570/mern#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "config": "^3.3.6",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^3.1.2",
+    "mongoose": "^6.0.12",
+    "passport": "^0.5.0",
+    "passport-local": "^1.0.0",
+    "stripe": "^8.220.0",
+    "uuid": "^8.3.2",
+    "validation": "0.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
