@@ -2,10 +2,12 @@
 
 const express = require('express');
 const connectDB = require('./config/db');
-var cors = require('cors');
 const auth = require('./middleware/auth');
+const path = require('path');
+const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
- 
+const cors = require('cors');  
+
 
 
 // Stripe routes
@@ -21,21 +23,19 @@ const users = require('./routes/api/Users');
 const Professionals = require('./routes/api/Professionals');
 
 const app = express();
-
+app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(bodyParser.json());
+app.use(cors());
 // Connect Database
 connectDB();
 app.use(cookieParser());
 // cors
 //app.use(cors({ origin: true, credentials: true }));
-app.use( (req, response, next)=> {
-  response.setHeader("Access-Control-Allow-Origin", "*");
-response.setHeader("Access-Control-Allow-Credentials", "true");
-response.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-response.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
-
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*"); 
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
-});
-app.use(cors());
+  });
 
 
 
@@ -53,20 +53,7 @@ app.use(express.json({ extended: false }));
 //app.get('/', (req, res) => res.send('Hello world!'));
 
 
-if ( process.env.NODE_ENV == "production"){
 
-  app.use(express.static("react-frontend/build"));
-
-  const path = require("path");
-
-  app.get("*", (req, res) => {
-
-      res.sendFile(path.resolve(__dirname, 'react-frontend', 'build', 'index.html'));
-
-  })
-
-
-}
 
 
 
@@ -78,6 +65,10 @@ app.use('/api/requests', requests);
 app.use('/api/applications', applications);
 app.use('/api/stripe', striperoutes);
 
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/react-frontend/build/index.html'));
+});
 const port = process.env.PORT || 8082;
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
